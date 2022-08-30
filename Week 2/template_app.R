@@ -7,6 +7,7 @@
 
 library(shiny)
 library(shinydashboard)
+library(DT)
 
 # UI ----
 ui <- dashboardPage(
@@ -21,7 +22,9 @@ ui <- dashboardPage(
             , box(width = 6)
         )
         , fluidRow(
-            box(width = 6)
+            box(width = 6,
+               DTOutput("data")
+               )
             , box(width = 6)
         )
     ),
@@ -30,7 +33,9 @@ ui <- dashboardPage(
 
 # Server ----
 server <- function(input, output) {
-    
+output$data <- renderDT({
+    data(iris)
+})
 }
 
 # Run the application 
